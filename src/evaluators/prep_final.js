@@ -20,8 +20,8 @@ const evalPrepFinal = (spec) => {
     params.LDIABM = 0.00;
     params.LDIAB  = 0.00;
     params.LDIAC  = 0.00;
-    params.TURNHT = 0;
-    params.TURNLT = 0;
+    params.turns_ht = 0;
+    params.turns_lt = 0;
     params.NLTLYR = 2;
     params.NHTLYR = 2;
 
@@ -64,6 +64,7 @@ const evalPrepFinal = (spec) => {
             break;
         default : 
             params.NHCOIL = 1;
+            break;
     }
 
     params.COILT    = 'a';
@@ -137,8 +138,8 @@ const evalPrepFinal = (spec) => {
     params.XSC      = 0.0000;
     params.DSTEP    = 1;
     params.EDSTEP   = 0;
-    params.STF      = 0.97;
-    params.SPF      = 0.9;
+    params.STF      = 0; //0.97; ASK
+    params.SPF      = 0; //0.9; ASK
     params.MSTEP    = 0;
     params.NSTEP    = 0;
     params.MAXWD    = 0;

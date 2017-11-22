@@ -5,6 +5,7 @@ import { createSpec } from '../actions/spec';
 import evalClearances from '../evaluators/clearances';
 import evalTankSpecs from '../evaluators/tank';
 import evalCurrentFlux from '../evaluators/current_flux';
+import uuid from 'uuid/v1';
 
 // evalClearances evaluates clearance values based on 
 // values in Spec values passed in by user via the form
@@ -19,7 +20,8 @@ const SpecPrep1 = (props) => {
                             ...specFromForm,
                             ...(evalClearances(specFromForm)),
                             ...(evalTankSpecs(specFromForm)),
-                            ...(evalCurrentFlux(specFromForm))
+                            ...(evalCurrentFlux(specFromForm)),
+                            id: uuid()
                     }));
                     props.history.push('/spec_prep2');
                 }}

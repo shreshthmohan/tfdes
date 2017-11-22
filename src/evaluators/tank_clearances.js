@@ -85,6 +85,8 @@ const evalTankClearances = (spec) => {
                     params.GAPCTOP = 60;
                 }
             }
+            break;
+
         case spec.kva > 40 && spec.kva < 100 : 
             if (spec.nominal_ht_voltage < 13000) {
                 params.GAPTL = spec.MCLRHTT;
@@ -160,6 +162,7 @@ const evalTankClearances = (spec) => {
                     params.GAPCTOP = 60;
                 }
             }
+            break;
 
         case spec.kva >= 100 && spec.kva < 150 :
             if (spec.nominal_ht_voltage < 13000) {
@@ -245,6 +248,7 @@ const evalTankClearances = (spec) => {
                     }
                 }
             }
+            break;
 
         case spec.kva >= 150 && spec.kva < 250 :
             if (spec.nominal_ht_voltage < 13000) {
@@ -320,6 +324,7 @@ const evalTankClearances = (spec) => {
                     params.GAPCTOP = 60;
                 }
             }
+            break;
 
         case spec.kva >= 250 && spec.kva < 400 :
             if (spec.nominal_ht_voltage < 13000) {
@@ -396,6 +401,8 @@ const evalTankClearances = (spec) => {
                     params.GAPCTOP = 60;
                 }
             }
+            break;
+
         case spec.kva >= 400 && spec.kva <= 630 :
             if (spec.nominal_ht_voltage < 13000) {
                 params.GAPTL = spec.MCLRHTT;
@@ -471,6 +478,8 @@ const evalTankClearances = (spec) => {
                     params.GAPCTOP = 60;
                 }
             }
+            break;
+
         case spec.kva > 630 :
             let temp = 0;
             if (spec.nominal_ht_voltage < 13000) {
@@ -549,8 +558,11 @@ const evalTankClearances = (spec) => {
                     params.GAPCTOP = 60;
                 }
             }
+            break;
+
         default:
             params.tank_clearance_error = 'HT voltage too high';
+            break;
     }
 
     return params;

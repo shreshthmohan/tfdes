@@ -20,10 +20,8 @@ const SpecPrep2 = (props) => {
 
 const mapStateToProps = (state, props) => {
     return {
-        spec: state.spec
+        spec: state.loadedDesign
     };
 };
 
 export default connect(mapStateToProps)(SpecPrep2);
-
-// TODO redirect to part 3

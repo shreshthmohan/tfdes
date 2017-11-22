@@ -1,30 +1,27 @@
-const specReducerDefaultState = {};
+const specReducerDefaultState = {
+    storedDesigns: [],
+    loadedDesign: {}
+};
 
+// action are 'dispatch'ed
 const specReducer = (state = specReducerDefaultState, action) => {
     switch (action.type) {
         case 'CREATE_SPEC' :
+            const design = {id: action.spec.id};
             return {
-                spec:         action.spec,
+                storedDesigns :     [ ...state.storedDesigns, design], 
+                loadedDesign:       action.spec
             };
         case 'EDIT_SPEC' :
             return {
-                spec:       { ...state.spec, ...action.spec},
+                storedDesigns:      state.storedDesigns,
+                loadedDesign:       { ...state.spec, ...action.spec}
             };
-        /*case 'EDIT_CLR' :
+        case 'LOAD_SPEC' :
             return {
-                spec:       state.spec,
-                clearances: {...state.clearances, ...action.clearances},
-                tank_specs: state.tank_specs,
-                current_flux: state.current_flux
+                storedDesigns:      state.storedDesigns,
+                loadedDesign:       action.spec
             };
-        case 'EDIT_TANK' :
-            return {
-                spec: state.spec,
-                clearances: state.clearances,
-                tank_specs: {...state.tank_specs, ...action.tank_specs},
-                current_flux: state.current_flux
-            };
-        */
         default:
             return state;
     }

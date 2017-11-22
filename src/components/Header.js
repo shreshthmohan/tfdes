@@ -7,7 +7,8 @@ const Header = () => {
             <NavLink activeClassName="is-active" to="/spec_prep1">
                 Specification Preparation
             </NavLink>
-            <NavLink to="/edit_spec1">Edit Specifications</NavLink>
+            <NavLink to="/choose_des_edit">Edit Specifications</NavLink>
+            <NavLink to="/pre_init_core_des">Initial Core Design</NavLink>
         </header>
     );
 };

@@ -20,6 +20,7 @@ const evalCurrentFlux = (spec) => {
 
     current_flux.max_over_flux = 12.5;
     current_flux.max_flux_density = 1.7;
+    current_flux.flux_density_design = current_flux.max_flux_density;
     current_flux.ht_insulation_material = 'dpc';
     current_flux.insulation_thickness_lt = 0.35;
     current_flux.insulation_thickness_lt = 0.25;

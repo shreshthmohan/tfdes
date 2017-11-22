@@ -12,6 +12,7 @@ export default class SpecForm4A extends React.Component {
             ,cu_loss                : props.spec_from_store.cu_loss
             ,ht_insulation_material : props.spec_from_store.ht_insulation_material
             ,max_flux_density       : props.spec_from_store.max_flux_density
+            ,flux_density_design    : props.spec_from_store.flux_density_design
             ,dir_loss               : props.spec_from_store.dir_loss
             ,ht_conductor_std_swg   : props.spec_from_store.ht_conductor_std_swg
             ,impedance_low          : props.spec_from_store.impedance_low
@@ -151,8 +152,8 @@ export default class SpecForm4A extends React.Component {
                     <label>Flux Density for Design
                         <input
                              onChange={this.onInputChangeNumber}
-                             value={this.state.max_flux_density}
-                             name="max_flux_density"
+                             value={this.state.flux_density_design}
+                             name="flux_density_design"
                         />
                     </label>
                     <p>% Impedance Limit for Design</p>
