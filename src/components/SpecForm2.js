@@ -7,7 +7,7 @@ export default class SpecForm2 extends React.Component {
         this.state = {
             ...props.specFromStore,
             MCLRLTY  : props.specFromStore ? props.specFromStore.MCLRLTY  : 0, 
-            MCLRHTHT : props.specFromStore ? props.specFromStore.MCLRHTHT : 0,
+            MCLRLTE  : props.specFromStore ? props.specFromStore.MCLRLTE  : 0,
             MCLRLTHT : props.specFromStore ? props.specFromStore.MCLRLTHT : 0,
             MCLRHTY  : props.specFromStore ? props.specFromStore.MCLRHTY  : 0,
             MCLRHTHT : props.specFromStore ? props.specFromStore.MCLRHTHT : 0,
@@ -19,24 +19,41 @@ export default class SpecForm2 extends React.Component {
             ACLRHTHT : props.specFromStore ? props.specFromStore.ACLRHTHT : 0
         };
     };
-    //onInputChange = (event) => {
-    //    const name = event.target.name;
-    //    const value = event.target.value;
-    //    this.setState(() => {
-    //        return {
-    //            [name]: value
-    //        };
-    //    });
-    //};
     onInputChangeNumber = (event) => {
+        const value = event.target.value;
         const name = event.target.name;
-        const value = parseFloat(event.target.value) || '';
+        if (!value || value.match(/^\d{1,}(\.\d{0,})?$/)) {
+
+            this.setState(() => {
+                return {
+                    [name]: value
+                };
+            });
+        }
+    };
+    onBlur = (event) => {
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
+
         this.setState(() => {
             return {
                 [name]: value
             };
         });
+        
     };
+    onKeyDown = (event) => {
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
+
+        if (event.keyCode == '13') {
+            this.setState(() => {
+                return {
+                    [name]: value
+                };
+            });
+        }
+    }
     onSubmit = (event) => {
         event.preventDefault();
         this.props.onSubmit(this.state);
@@ -50,22 +67,48 @@ export default class SpecForm2 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.MCLRLTY}
                             name="MCLRLTY"
+                        />
+                    </label>
+                    <label>LT to Earth
+                        <input
+                            type="text"
+                            onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
+                            value={this.state.MCLRLTE}
+                            name="MCLRLTE"
                         />
                     </label>
                     <label>LT to HT
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.MCLRLTHT}
                             name="MCLRLTHT"
+                        />
+                    </label>
+                    <label>HT to Yoke
+                        <input
+                            type="text"
+                            onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
+                            value={this.state.MCLRHTY}
+                            name="MCLRHTY"
                         />
                     </label>
                     <label>HT to HT
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.MCLRHTHT}
                             name="MCLRHTHT"
                         />
@@ -74,6 +117,8 @@ export default class SpecForm2 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.MCLRHTT}
                             name="MCLRHTT"
                         />
@@ -83,6 +128,8 @@ export default class SpecForm2 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.ACLRLTE}
                             name="ACLRLTE"
                         />
@@ -91,6 +138,8 @@ export default class SpecForm2 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.ACLRLTLT}
                             name="ACLRLTLT"
                         />
@@ -99,6 +148,8 @@ export default class SpecForm2 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.ACLRHTE}
                             name="ACLRHTE"
                         />
@@ -107,6 +158,8 @@ export default class SpecForm2 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.ACLRHTHT}
                             name="ACLRHTHT"
                         />

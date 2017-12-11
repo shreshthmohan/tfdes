@@ -5,24 +5,10 @@ export default class SpecForm4A extends React.Component {
         super(props);
 
         this.state = {
-            ...props.spec_from_store
-            ,hv_winding             : props.spec_from_store.hv_winding
-            ,lv_winding             : props.spec_from_store.lv_winding
-            ,stray_loss             : props.spec_from_store.stray_loss
-            ,cu_loss                : props.spec_from_store.cu_loss
-            ,ht_insulation_material : props.spec_from_store.ht_insulation_material
-            ,max_flux_density       : props.spec_from_store.max_flux_density
-            ,flux_density_design    : props.spec_from_store.flux_density_design
-            ,dir_loss               : props.spec_from_store.dir_loss
-            ,ht_conductor_std_swg   : props.spec_from_store.ht_conductor_std_swg
-            ,impedance_low          : props.spec_from_store.impedance_low
-            ,impedance_high         : props.spec_from_store.impedance_high
-            ,lt_area_m              : props.spec_from_store.lt_area_m
-            ,covering_ht            : props.spec_from_store.covering_ht
-            ,covering_lt            : props.spec_from_store.covering_lt
-            ,lt_coil_count          : 1
-            ,lt_coil_clearance      : 5
-            ,lt_transpose           : true
+            ...props.specFromStore
+            ,lt_coil_count          : props.specFromStore.lt_coil_count || 1
+            ,lt_coil_clearance      : props.specFromStore.lt_coil_clearance || 5
+            ,lt_transpose           : props.specFromStore.lt_transpose || true
         };
     };
     onInputChange = (event) => {
@@ -44,14 +30,40 @@ export default class SpecForm4A extends React.Component {
         });
     };
     onInputChangeNumber = (event) => {
+        const value = event.target.value;
         const name = event.target.name;
-        const value = parseFloat(event.target.value) || '';
+        if (!value || value.match(/^\d{1,}(\.\d{0,})?$/)) {
+
+            this.setState(() => {
+                return {
+                    [name]: value
+                };
+            });
+        }
+    };
+    onBlur = (event) => {
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
+
         this.setState(() => {
             return {
                 [name]: value
             };
         });
+        
     };
+    onKeyDown = (event) => {
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
+
+        if (event.keyCode == '13') {
+            this.setState(() => {
+                return {
+                    [name]: value
+                };
+            });
+        }
+    }
     evalStrayLoss = () => {
         let stray = parseFloat(this.state.stray_loss);
         if (this.state.lt_area_m > 65 && !this.state.lt_transpose) {
@@ -80,6 +92,8 @@ export default class SpecForm4A extends React.Component {
                             <label>No. of LT Coil(1/2)
                                 <input
                                      onChange={this.onInputChangeNumber}
+                                     onBlur={this.onBlur}
+                                     onKeyDown={this.onKeyDown}
                                      value={this.state.lt_coil_count}
                                      name="lt_coil_count"
                                 />
@@ -87,6 +101,8 @@ export default class SpecForm4A extends React.Component {
                             <label>Clearance between LT coils
                                 <input
                                      onChange={this.onInputChangeNumber}
+                                     onBlur={this.onBlur}
+                                     onKeyDown={this.onKeyDown}
                                      value={this.state.lt_coil_clearance}
                                      name="lt_coil_clearance"
                                 />
@@ -118,6 +134,8 @@ export default class SpecForm4A extends React.Component {
                     <label>LT Conductor
                         <input
                              onChange={this.onInputChangeNumber}
+                             onBlur={this.onBlur}
+                             onKeyDown={this.onKeyDown}
                              value={this.state.covering_lt}
                              name="covering_lt"
                         />
@@ -125,6 +143,8 @@ export default class SpecForm4A extends React.Component {
                     <label>HT Conductor
                         <input
                              onChange={this.onInputChangeNumber}
+                             onBlur={this.onBlur}
+                             onKeyDown={this.onKeyDown}
                              value={this.state.covering_ht}
                              name="covering_ht"
                         />
@@ -145,6 +165,8 @@ export default class SpecForm4A extends React.Component {
                     <label>Set I2R Loss for design
                         <input
                              onChange={this.onInputChangeNumber}
+                             onBlur={this.onBlur}
+                             onKeyDown={this.onKeyDown}
                              value={this.state.dir_loss}
                              name="dir_loss"
                         />
@@ -152,6 +174,8 @@ export default class SpecForm4A extends React.Component {
                     <label>Flux Density for Design
                         <input
                              onChange={this.onInputChangeNumber}
+                             onBlur={this.onBlur}
+                             onKeyDown={this.onKeyDown}
                              value={this.state.flux_density_design}
                              name="flux_density_design"
                         />
@@ -160,6 +184,8 @@ export default class SpecForm4A extends React.Component {
                     <label>Low 
                         <input
                              onChange={this.onInputChangeNumber}
+                             onBlur={this.onBlur}
+                             onKeyDown={this.onKeyDown}
                              value={this.state.impedance_low}
                              name="impedance_low"
                         />
@@ -167,6 +193,8 @@ export default class SpecForm4A extends React.Component {
                     <label>High
                         <input
                              onChange={this.onInputChangeNumber}
+                             onBlur={this.onBlur}
+                        onKeyDown={this.onKeyDown}
                              value={this.state.impedance_high}
                              name="impedance_high"
                         />

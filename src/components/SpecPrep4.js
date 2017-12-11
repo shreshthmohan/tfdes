@@ -1,20 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SpecForm4 from './SpecForm4';
-import { editSpec } from '../actions/spec';
+import { editSpecBeforeSave } from '../actions/spec';
 // eval winding params
-import evalWindingParams from '../evaluators/winding';
+import evalWindingParams from '../evaluators/winding_init';
 
 const SpecPrep4 = (props) => {
     return (
         <div>
             <h1>Specification - Part 4</h1>
             <SpecForm4
-                spec_from_store={props.spec}
-                onSubmit={(spec_from_form) => {
-                    props.dispatch(editSpec({
-                        ...spec_from_form,
-                        ...(evalWindingParams(spec_from_form))
+                specFromStore={props.spec}
+                onSubmit={(specFromForm) => {
+                    props.dispatch(editSpecBeforeSave({
+                        ...specFromForm,
+                        ...(evalWindingParams(specFromForm))
                     }));
                     props.history.push('/spec_prep4a');
                 }}
@@ -25,7 +25,7 @@ const SpecPrep4 = (props) => {
 
 const mapStateToProps = (state, props) => {
     return {
-        spec      : state.spec
+        spec      : state.loadedDesign
     };
 };
 

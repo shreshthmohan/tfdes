@@ -1,13 +1,13 @@
 
 const evalTankClearances = (spec) => {
     
-    let params = {
-         GAPTL        : spec.GAPTL  
-        ,GAPTWLT      : spec.GAPTWLT
-        ,GAPTWHT      : spec.GAPTWHT
-        ,GAPCTOP      : spec.GAPCTOP
-        ,GAPAIR       : spec.GAPAIR 
-    };
+    let params = {};
+
+    params.GAPTL   = 0; 
+    params.GAPTWLT = 0; 
+    params.GAPTWHT = 0; 
+    params.GAPCTOP = 0; 
+    params.GAPAIR  = 0; 
 
     switch (true) {
         case spec.kva <= 40 : 

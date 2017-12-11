@@ -5,7 +5,7 @@ export default class PreInitCoreDesForm extends React.Component {
         super(props);
 
         this.state = {
-            ...props.spec_from_store,
+            ...props.specFromStore,
             change_flux_density : false
 
         };
@@ -14,12 +14,16 @@ export default class PreInitCoreDesForm extends React.Component {
 
     componentDidMount() {
         // evalLTTurns returns an object, not just a single value 
-        let turns_lt = this.state.turns_lt;
+        let turns_lt = {};
         if (this.state.turns_lt === 0) {
-            turns_lt = this.props.evalLTTurns(this.props.spec_from_store);
+            turns_lt = this.props.evalLTTurns(this.props.specFromStore);
         }
 
-        const turns_ht = this.props.evalHTTurns({...this.state, turns_lt : turns_lt});
+        const turns_ht = this.props.evalHTTurns(
+        {
+            ...this.props.specFromStore,
+            ...turns_lt
+        });
 
         this.setState(() => {
             return {...turns_lt, ...turns_ht};
@@ -36,15 +40,40 @@ export default class PreInitCoreDesForm extends React.Component {
         });
     };
     onInputChangeNumber = (event) => {
+        const value = event.target.value;
         const name = event.target.name;
-        const value = parseFloat(event.target.value) || '';
+        if (!value || value.match(/^\d{1,}(\.\d{0,})?$/)) {
+
+            this.setState(() => {
+                return {
+                    [name]: value
+                };
+            });
+        }
+    };
+    onBlur = (event) => {
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
+
         this.setState(() => {
             return {
                 [name]: value
             };
         });
+        
     };
+    onKeyDown = (event) => {
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
 
+        if (event.keyCode == '13') {
+            this.setState(() => {
+                return {
+                    [name]: value
+                };
+            });
+        }
+    }
     onSubmit = (event) => {
         event.preventDefault();
         this.props.onSubmit({

@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SpecForm1 from './SpecForm1';
-import { editSpec } from '../actions/spec';
+import { editSpecAfterSave } from '../actions/spec';
 
 
 // ASK TODO: do we want to recalculate params upon editing?
+// Hint: look at PRG source
 
 const EditSpec1 = (props) => {
     return (
@@ -13,7 +14,8 @@ const EditSpec1 = (props) => {
             <SpecForm1
                 specFromStore={props.spec}
                 onSubmit={(specFromForm) => {
-                    props.dispatch(editSpec(specFromForm))
+                    props.dispatch(editSpecAfterSave(specFromForm));
+                    props.history.push('/pre_edit');
                 }}
             />
         </div>
@@ -22,7 +24,7 @@ const EditSpec1 = (props) => {
 
 const mapStateToProps = (state, props) => {
     return {
-        spec: state.spec
+        spec: state.loadedDesign
     };
 };
 

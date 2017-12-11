@@ -5,18 +5,44 @@ export default class SpecForm4 extends React.Component {
         super(props);
 
         this.state = {
-            ...props.spec_from_store
+            ...props.specFromStore
         };
     };
     onInputChangeNumber = (event) => {
+        const value = event.target.value;
         const name = event.target.name;
-        const value = parseFloat(event.target.value) || '';
+        if (!value || value.match(/^\d{1,}(\.\d{0,})?$/)) {
+
+            this.setState(() => {
+                return {
+                    [name]: value
+                };
+            });
+        }
+    };
+    onBlur = (event) => {
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
+
         this.setState(() => {
             return {
                 [name]: value
             };
         });
+        
     };
+    onKeyDown = (event) => {
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
+
+        if (event.keyCode == '13') {
+            this.setState(() => {
+                return {
+                    [name]: value
+                };
+            });
+        }
+    }
     onSubmit = (event) => {
         event.preventDefault();
         this.props.onSubmit(this.state);
@@ -31,6 +57,8 @@ export default class SpecForm4 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.max_current_density_lt}
                             name="max_current_density_lt"
                         />
@@ -39,14 +67,18 @@ export default class SpecForm4 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.max_current_density_ht}
                             name="max_current_density_ht"
                         />
                     </label>
-                    <label>Conductor Rad Size
+                    <label>Conductor Rod Size
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.rod_size}
                             name="rod_size"
                         />
@@ -55,6 +87,8 @@ export default class SpecForm4 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.max_over_flux}
                             name="max_over_flux"
                         />
@@ -63,6 +97,8 @@ export default class SpecForm4 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.max_flux_density}
                             name="max_flux_density"
                         />

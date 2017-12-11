@@ -88,8 +88,8 @@ const evalCurrentFlux = (spec) => {
             break;
     }
 
-    current_flux.impedance_low = (1 - spec.impedance_tolerance / 100) * spec.pc_impedance;
-    current_flux.impedance_high = (1 + spec.impedance_tolerance / 100) * spec.pc_impedance;
+    current_flux.impedance_low = (1 - spec.impedance_tolerance / 100) * spec.impedance_pc;
+    current_flux.impedance_high = (1 + spec.impedance_tolerance / 100) * spec.impedance_pc;
 
     return current_flux;
 };

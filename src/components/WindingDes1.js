@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SpecForm2 from './SpecForm2';
+import WindingDesForm1 from './WindingDesForm1';
 import { editSpecAfterSave } from '../actions/spec';
 
-const EditSpec2 = (props) => {
+const WindingDes1 = (props) => {
     return (
         <div>
-            <h1>Editing Specifications - Part 2</h1>
-            <SpecForm2
+            <h1>Winding Design - Step 1</h1>
+            <WindingDesForm1
                 specFromStore={props.spec}
                 onSubmit={(specFromForm) => {
-                    props.dispatch(editSpecAfterSave(specFromForm))
-                    props.history.push('/pre_edit');
+                    props.dispatch(editSpecAfterSave(specFromForm));
+                    props.history.push('/winding_des2');
                 }}
             />
         </div>
@@ -24,4 +24,4 @@ const mapStateToProps = (state, props) => {
     };
 };
 
-export default connect(mapStateToProps)(EditSpec2);
+export default connect(mapStateToProps)(WindingDes1);

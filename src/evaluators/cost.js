@@ -2,15 +2,15 @@
 const evalCostParams = (spec) => {
     let cost = {}; 
 
-    cost.cost_cu_lt               = 0;
-    cost.cost_cu_ht               = 0;
-    cost.cost_al_lt               = 0;
-    cost.cost_al_ht               = 0;
-    cost.cost_crgo                = 0;
-    cost.cost_oil                 = 0;
-    cost.cost_steel               = 0;
-    cost.cost_radiator            = 0;
-    cost.cost_radiator_elleptical = 0;
+    cost.cost_cu_lt               = spec.cost_cu_lt    || 400;
+    cost.cost_cu_ht               = spec.cost_cu_ht    || 400;
+    cost.cost_al_lt               = spec.cost_al_lt    || 155;
+    cost.cost_al_ht               = spec.cost_al_ht    || 155;
+    cost.cost_crgo                = spec.cost_crgo     || 200;
+    cost.cost_oil                 = spec.cost_oil      || 55;
+    cost.cost_steel               = spec.cost_steel    || 45;
+    cost.cost_radiator            = spec.cost_radiator || 55;
+    cost.cost_radiator_elleptical = spec.cost_radiator_elleptical || 55;
 
     // TODO restore existing cost data
     

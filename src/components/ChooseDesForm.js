@@ -1,13 +1,15 @@
 import React from 'react';
-import Link from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 
-export default class ChooseDesEditForm extends React.Component {
+export default class ChooseDesForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             storedDesigns : props.storedDesigns,
-            selectedDesign : '',
+            selectedDesign : props.loadedDesign.id || '',
+            loadedDesign : props.loadedDesign.id || '',
             error: ''
         };
     }
@@ -30,7 +32,12 @@ export default class ChooseDesEditForm extends React.Component {
                 };
             })
         } else {
-            this.props.onSubmit(this.state.selectedDesign);
+            this.props.onSubmit({
+                id : this.state.selectedDesign,
+                // should be false if design is already loaded
+                toLoad : this.state.loadedDesign === ''
+
+            });
         }
 
     };
@@ -43,7 +50,7 @@ export default class ChooseDesEditForm extends React.Component {
                     No saved designs 
                     <Link to="/">Go Home</Link>
                 </h2> :
-                <h2>Choose design to edit</h2>
+                <h2>Choose design to {this.props.customText}</h2>
             }
             {this.state.storedDesigns.length > 0 &&
                 <form onSubmit={this.onSubmit}>
@@ -52,9 +59,14 @@ export default class ChooseDesEditForm extends React.Component {
                         value={this.state.selectedDesign}
                         name="selectedDesign"
                     >
-                        <option value="">Nothing selected</option>
+                        {this.state.selectedDesign == '' &&
+                            <option value="">Nothing selected</option>}
                     {this.state.storedDesigns.map((des) => {
-                        return (<option value={des.id}>{des.id}</option>);
+                        return (
+                            <option key={des.id} value={des.id}>
+                                {des.design_name + ' '}
+                                {moment(des.created_at).format('D MMM Y')}
+                            </option>);
                     })}
                     </select>
                     <button>Edit</button>

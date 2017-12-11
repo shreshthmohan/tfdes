@@ -22,7 +22,7 @@ export default class SpecForm1 extends React.Component {
             fe_loss : props.specFromStore ? props.specFromStore.fe_loss : 0,
             cu_loss : props.specFromStore ? props.specFromStore.cu_loss : 0,
             loss_tolerance : props.specFromStore ? props.specFromStore.loss_tolerance : false,
-            pc_impedance : props.specFromStore ? props.specFromStore.pc_impedance : 0,
+            impedance_pc : props.specFromStore ? props.specFromStore.impedance_pc : 0,
             impedance_tolerance: props.specFromStore ? props.specFromStore.impedance_tolerance : 10, 
             max_top_oil_temp_rise : props.specFromStore ? props.specFromStore.max_top_oil_temp_rise : 50,
             winding_temp_rise : props.specFromStore ? props.specFromStore.winding_temp_rise : 55,
@@ -55,16 +55,43 @@ export default class SpecForm1 extends React.Component {
         });
     };
     onInputChangeNumber = (event) => {
+        const value = event.target.value;
         const name = event.target.name;
-        const value = parseFloat(event.target.value) || '';
+        if (!value || value.match(/^(-)?\d{0,}(\.\d{0,})?$/)) {
+
+            this.setState(() => {
+                return {
+                    [name]: value
+                };
+            });
+        }
+    };
+    onBlur = (event) => {
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
+
         this.setState(() => {
             return {
                 [name]: value
             };
         });
+        
     };
+    onKeyDown = (event) => {
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
+
+        if (event.keyCode == '13') {
+            this.setState(() => {
+                return {
+                    [name]: value
+                };
+            });
+        }
+    }
+
     evalTapStep = () => {
-        const tap_sum = parseFloat(this.state.tapping_pc_max) + parseFloat(this.state.tapping_pc_min);
+        const tap_sum = parseFloat(this.state.tapping_pc_max) - parseFloat(this.state.tapping_pc_min);
         return (tap_sum == 0 ? 0 : parseFloat(this.state.tap_step_size));
     };
     evalLTKRAFT = () => {
@@ -91,6 +118,8 @@ export default class SpecForm1 extends React.Component {
                  <label>KVA
                      <input
                         onChange={this.onInputChangeNumber}
+                        onBlur={this.onBlur}
+                        onKeyDown={this.onKeyDown}
                         value={this.state.kva}
                         name="kva"
                      />
@@ -98,6 +127,8 @@ export default class SpecForm1 extends React.Component {
                  <label>Frequency
                      <input
                          onChange={this.onInputChangeNumber}
+                         onBlur={this.onBlur}
+                         onKeyDown={this.onKeyDown}
                          value={this.state.frequency}
                          name="frequency"
                      />
@@ -105,6 +136,8 @@ export default class SpecForm1 extends React.Component {
                  <label>Nominal HT Voltage
                     <input
                         onChange={this.onInputChangeNumber}
+                         onBlur={this.onBlur}
+                         onKeyDown={this.onKeyDown}
                         value={this.state.nominal_ht_voltage}
                         name="nominal_ht_voltage"
                     />
@@ -112,6 +145,8 @@ export default class SpecForm1 extends React.Component {
                  <label>Nominal LT Voltage
                     <input
                         onChange={this.onInputChangeNumber}
+                         onBlur={this.onBlur}
+                         onKeyDown={this.onKeyDown}
                         value={this.state.nominal_lt_voltage}
                         name="nominal_lt_voltage"
                     />
@@ -119,6 +154,8 @@ export default class SpecForm1 extends React.Component {
                  <label>Tapping % Minimum
                     <input
                         onChange={this.onInputChangeNumber}
+                         onBlur={this.onBlur}
+                         onKeyDown={this.onKeyDown}
                         value={this.state.tapping_pc_min}
                         name="tapping_pc_min"
                     />
@@ -126,6 +163,8 @@ export default class SpecForm1 extends React.Component {
                  <label>Tapping % Maximum
                     <input
                         onChange={this.onInputChangeNumber}
+                         onBlur={this.onBlur}
+                         onKeyDown={this.onKeyDown}
                         value={this.state.tapping_pc_max}
                         name="tapping_pc_max"
                     />
@@ -133,6 +172,8 @@ export default class SpecForm1 extends React.Component {
                  <label>Tapping Step Size
                     <input
                         onChange={this.onInputChangeNumber}
+                         onBlur={this.onBlur}
+                         onKeyDown={this.onKeyDown}
                         value={this.state.tap_step_size}
                         name="tap_step_size"
                     />
@@ -201,6 +242,8 @@ export default class SpecForm1 extends React.Component {
                  <label>No Load Loss
                    <input
                         onChange={this.onInputChangeNumber}
+                         onBlur={this.onBlur}
+                         onKeyDown={this.onKeyDown}
                         value={this.state.fe_loss}
                         name="fe_loss"
                    />
@@ -208,6 +251,8 @@ export default class SpecForm1 extends React.Component {
                  <label>Load Loss
                    <input
                         onChange={this.onInputChangeNumber}
+                         onBlur={this.onBlur}
+                         onKeyDown={this.onKeyDown}
                         value={this.state.cu_loss}
                         name="cu_loss"
                    />
@@ -225,13 +270,17 @@ export default class SpecForm1 extends React.Component {
                  <label>% Impedance
                    <input
                         onChange={this.onInputChangeNumber}
-                        value={this.state.pc_impedance}
-                        name="pc_impedance"
+                         onBlur={this.onBlur}
+                         onKeyDown={this.onKeyDown}
+                        value={this.state.impedance_pc}
+                        name="impedance_pc"
                    />
                  </label>
                  <label>Tolerance over Impedance
                    <input
                         onChange={this.onInputChangeNumber}
+                         onBlur={this.onBlur}
+                         onKeyDown={this.onKeyDown}
                         value={this.state.impedance_tolerance}
                         name="impedance_tolerance"
                    />
@@ -239,6 +288,8 @@ export default class SpecForm1 extends React.Component {
                  <label>Max. Top Oil Temperature Rise
                    <input
                         onChange={this.onInputChangeNumber}
+                         onBlur={this.onBlur}
+                         onKeyDown={this.onKeyDown}
                         value={this.state.max_top_oil_temp_rise}
                         name="max_top_oil_temp_rise"
                    />
@@ -246,6 +297,8 @@ export default class SpecForm1 extends React.Component {
                  <label>Winding Temperature Rise
                    <input
                         onChange={this.onInputChangeNumber}
+                         onBlur={this.onBlur}
+                         onKeyDown={this.onKeyDown}
                         value={this.state.winding_temp_rise}
                         name="winding_temp_rise"
                    />
@@ -322,7 +375,7 @@ export default class SpecForm1 extends React.Component {
 //fe_loss
 //cu_loss
 //loss_tolerance
-//pc_impedance
+//impedance_pc
 //impedance_tolerance
 //max_top_oil_temp_rise
 //winding_temp_rise
@@ -356,7 +409,7 @@ export default class SpecForm1 extends React.Component {
 //                fe_loss :               this.state.fe_loss,
 //                cu_loss :               this.state.cu_loss,
 //                loss_tolerance :        this.state.loss_tolerance,
-//                pc_impedance :          this.state.pc_impedance,
+//                impedance_pc :          this.state.impedance_pc,
 //                impedance_tolerance :   this.state.impedance_tolerance,
 //                max_top_oil_temp_rise : this.state.max_top_oil_temp_rise,
 //                winding_temp_rise :     this.state.winding_temp_rise,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SpecForm4A from './SpecForm4A';
-import { editSpec } from '../actions/spec';
+import { editSpecBeforeSave } from '../actions/spec';
 import evalCostParams from '../evaluators/cost';
 
 const SpecPrep4A = (props) => {
@@ -9,11 +9,11 @@ const SpecPrep4A = (props) => {
         <div>
             <h1>4A</h1>
             <SpecForm4A
-                spec_from_store={props.spec}
-                onSubmit={(spec_from_form) => {
-                    props.dispatch(editSpec({
-                        ...spec_from_form,
-                        ...(evalCostParams(spec_from_form))
+                specFromStore={props.spec}
+                onSubmit={(specFromForm) => {
+                    props.dispatch(editSpecBeforeSave({
+                        ...specFromForm,
+                        ...(evalCostParams(specFromForm))
                     }));
                     props.history.push('/spec_prep5');
                 }}
@@ -24,7 +24,7 @@ const SpecPrep4A = (props) => {
 
 const mapStateToProps = (state, props) => {
     return {
-        spec      : state.spec
+        spec      : state.loadedDesign
     };
 };
 

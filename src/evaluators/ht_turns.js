@@ -4,6 +4,8 @@ const evalHTTurns = (spec) => {
 
     params.turns_ht = spec.hv_leg * spec.turns_lt / spec.lv_leg;
 
+    console.log('turns_ht:' + params.turns_ht);
+
     if (spec.lt_connections === 'zigzag') {
         params.turns_ht = params.turns_ht * Math.sqrt(3) / 2;
     }

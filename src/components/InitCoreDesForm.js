@@ -5,7 +5,7 @@ export default class InitCoreDesForm extends React.Component {
         super(props);
 
         this.state = {
-            ...props.spec_from_store,
+            ...props.specFromStore,
             core_steps_success : false
         };
     }

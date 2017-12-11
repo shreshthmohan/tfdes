@@ -83,6 +83,8 @@ const evalWindingParams = (spec) => {
     }
 
     // Covering / Insulation
+    winding_params.covering_ht = 0.25;
+    winding_params.covering_lt = 0.35;
 
     if (spec.winding_conductor_ht === 'aluminium') {
 
@@ -104,6 +106,7 @@ const evalWindingParams = (spec) => {
                 break;
             default : 
                 winding_params.covering_ht = 0.35;
+                break;
         }
     } else { // ht winding is copper 
         switch (true) {
@@ -124,6 +127,7 @@ const evalWindingParams = (spec) => {
                 break;
             default : 
                 winding_params.covering_ht = 0.35;
+                break;
         }
     }
 
@@ -149,7 +153,7 @@ const evalWindingParams = (spec) => {
         winding_params.covering_lt = 0.5;
     }
 
-    if (winding_params.hv_winding === 'd') {
+    if (winding_params.hv_winding === 'disc') {
         winding_params.covering_ht = 0.5;
 
         if (spec.kva > 6300) {
@@ -159,7 +163,7 @@ const evalWindingParams = (spec) => {
         }
     }
 
-    if (winding_params.lv_winding === 'd') {
+    if (winding_params.lv_winding === 'disc') {
         winding_params.covering_lt = 0.5;
 
         if (spec.kva > 8000) {

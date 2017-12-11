@@ -5,25 +5,78 @@ export default class SpecForm5 extends React.Component {
         super(props);
 
         this.state = {
-            ...props.spec_from_store
+            ...props.specFromStore
         };
     };
+
     onInputChangeNumber = (event) => {
+        const value = event.target.value;
         const name = event.target.name;
-        const value = parseFloat(event.target.value) || '';
+        if (!value || value.match(/^\d{1,}(\.\d{0,})?$/)) {
+
+            this.setState(() => {
+                return {
+                    [name]: value
+                };
+            });
+        }
+    };
+    onBlur = (event) => {
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
+
         this.setState(() => {
             return {
                 [name]: value
             };
         });
+        
     };
+    onKeyDown = (event) => {
+        const value = parseFloat(event.target.value) || 0;
+        const name = event.target.name;
+
+        if (event.keyCode == '13') {
+            this.setState(() => {
+                return {
+                    [name]: value
+                };
+            });
+        }
+    }
+    evalCost = () => {
+
+        const x = (this.state.cost_lt + this.state.cost_ht) / 2;
+        let cost_factor = 0;
+        if (x != 0 && this.state.cost_crgo != 0) {
+            cost_factor = this.state.cost_crgo / x; 
+        } else {
+            if (this.state.winding_conductor_ht == 'aluminium') {
+                cost_factor = 1.2;
+            } else {
+                cost_factor = 0.7;
+            }
+        }
+        return cost_factor;
+    };
+
     onSubmit = (event) => {
         event.preventDefault();
-        this.props.onSubmit(
-            {
-                ...(this.state)
-            }
-        );
+        if (this.props.edit == 'yes') {
+            this.props.onSubmit(
+                {
+                    ...(this.state),
+                    cost_factor : this.evalCost()
+                }
+            );
+        } else {
+
+            this.props.onSubmit(
+                {
+                    ...(this.state)
+                }
+            );
+        }
     };
     render() {
         return (
@@ -34,6 +87,8 @@ export default class SpecForm5 extends React.Component {
                             <input
                                 type="text"
                                 onChange={this.onInputChangeNumber}
+                                onBlur={this.onBlur}
+                                onKeyDown={this.onKeyDown}
                                 value={this.state.cost_lt}
                                 name="cost_lt"
                             />
@@ -44,6 +99,8 @@ export default class SpecForm5 extends React.Component {
                             <input
                                 type="text"
                                 onChange={this.onInputChangeNumber}
+                                onBlur={this.onBlur}
+                                onKeyDown={this.onKeyDown}
                                 value={this.state.cost_lt}
                                 name="cost_lt"
                             />
@@ -54,6 +111,8 @@ export default class SpecForm5 extends React.Component {
                             <input
                                 type="text"
                                 onChange={this.onInputChangeNumber}
+                                onBlur={this.onBlur}
+                                onKeyDown={this.onKeyDown}
                                 value={this.state.cost_ht}
                                 name="cost_ht"
                             />
@@ -64,6 +123,8 @@ export default class SpecForm5 extends React.Component {
                             <input
                                 type="text"
                                 onChange={this.onInputChangeNumber}
+                                onBlur={this.onBlur}
+                                onKeyDown={this.onKeyDown}
                                 value={this.state.cost_ht}
                                 name="cost_ht"
                             />
@@ -73,6 +134,8 @@ export default class SpecForm5 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.cost_crgo}
                             name="cost_crgo"
                         />
@@ -81,6 +144,8 @@ export default class SpecForm5 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.cost_oil}
                             name="cost_oil"
                         />
@@ -89,6 +154,8 @@ export default class SpecForm5 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.cost_steel}
                             name="cost_steel"
                         />
@@ -97,6 +164,8 @@ export default class SpecForm5 extends React.Component {
                         <input
                             type="text"
                             onChange={this.onInputChangeNumber}
+                            onBlur={this.onBlur}
+                            onKeyDown={this.onKeyDown}
                             value={this.state.cost_radiator}
                             name="cost_radiator"
                         />

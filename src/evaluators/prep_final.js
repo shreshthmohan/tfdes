@@ -17,6 +17,15 @@ const evalPrepFinal = (spec) => {
     }
 
     // final params 
+    //
+    params.CAXLTOL = 1.02;
+
+    params.DLVINS = 3;
+    params.DHVINS = 3;
+    params.DHVBRINS = 18;
+
+    params.DHVNORN = 0;
+
     params.LDIABM = 0.00;
     params.LDIAB  = 0.00;
     params.LDIAC  = 0.00;
@@ -24,6 +33,8 @@ const evalPrepFinal = (spec) => {
     params.turns_lt = 0;
     params.NLTLYR = 2;
     params.NHTLYR = 2;
+
+    params.HTWH = 0;
 
     params.HDIAC = spec.HDIAB + spec.covering_ht;
 
@@ -220,6 +231,13 @@ const evalPrepFinal = (spec) => {
     params.RADRAD       = 250;
     params.RADCORE      = 0;
     params.RADCORR      = 1.0;
+
+    params.DHVTAP=0
+    params.DHVTAPN=0
+    params.DHVTAPCWD=0.00
+    params.DHVTAPCTH=0.00
+
+    params.NHTAP = 0;
 
     if (spec.kva > 1500) {
         params.FLITCH = true;

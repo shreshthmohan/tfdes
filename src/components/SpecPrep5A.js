@@ -1,15 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import SpecForm5A from './SpecForm5A';
+import { saveSpec } from '../actions/spec';
 
 const SpecPrep5A = (props) => {
     return (
         <div>
             <h1>Specification - Part 5A</h1>
-            <p>KVA: {props.spec.kva}</p>
-            <p>Nominal HT Voltage: {props.spec.nominal_ht_voltage}</p>
-            <p>Nominal LT Voltage: {props.spec.nominal_lt_voltage}</p>
-            <p>LT Winding Conductor: {props.spec.winding_conductor_lt}</p>
-            <p>Tank Type: {props.spec.tank_type}</p>
+            <SpecForm5A 
+                specFromStore={props.spec}
+                onSubmit={(specFromForm) => {
+                    props.dispatch(saveSpec(specFromForm));
+                    props.history.push('/');
+                }}
+            />
         </div>
     );
 };
@@ -18,7 +22,7 @@ const SpecPrep5A = (props) => {
 
 const mapStateToProps = (state, props) => {
     return {
-        spec      : state.spec
+        spec      : state.loadedDesign
     };
 };
 

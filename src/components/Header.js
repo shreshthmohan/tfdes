@@ -8,7 +8,8 @@ const Header = () => {
                 Specification Preparation
             </NavLink>
             <NavLink to="/choose_des_edit">Edit Specifications</NavLink>
-            <NavLink to="/pre_init_core_des">Initial Core Design</NavLink>
+            <NavLink to="/choose_des_ini">Initial Core Design</NavLink>
+            <NavLink to="/choose_des_wind">Winding Design</NavLink>
         </header>
     );
 };

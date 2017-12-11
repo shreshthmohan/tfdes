@@ -19,6 +19,4 @@ ReactDOM.render(jsx, document.getElementById('app'));
 store.subscribe(() => {
     const spec =  store.getState();
     console.log(spec);
-    console.log(typeof spec.kva);
-    console.log(typeof spec.frequency);
 });

@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import ChooseDesForm from './ChooseDesForm';
 import { loadSpec } from '../actions/spec';
 
-const ChooseDesEdit = (props) => {
+const ChooseDesIni = (props) => {
     return (
         <div>
             <ChooseDesForm
                 storedDesigns={props.storedDesigns}
                 loadedDesign={props.loadedDesign}
-                customText='edit'
+                customText='do initial core design for'
                 onSubmit={(data) => {
                     if (data.toLoad === true) {
                         props.dispatch(loadSpec(data.id));
                     }
-                    props.history.push('/pre_edit');
+                    props.history.push('/pre_init_core_des');
                 }}
             />
         </div>
@@ -28,5 +28,5 @@ const mapStateToProps = (state, props) => {
     };
 };
 
-export default connect(mapStateToProps)(ChooseDesEdit);
+export default connect(mapStateToProps)(ChooseDesIni);
 

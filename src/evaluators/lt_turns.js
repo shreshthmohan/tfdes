@@ -60,7 +60,7 @@ const evalLTTurns = (spec) => {
             }
             break;
 
-        case spec.winding_conductor_ht === 'copper' && spec.nominal_ht_voltage < 13000 :
+        case spec.winding_conductor_ht == 'copper' && spec.nominal_ht_voltage < 13000 :
             if (spec.kva <= 200) {
                 factor = spec.cost_factor * Math.sqrt(spec.impedance_pc / 4.5);
                 if (factor < 0.7) {
@@ -85,6 +85,7 @@ const evalLTTurns = (spec) => {
                 factor = spec.cost_factor * Math.sqrt(spec.impedance_pc / 5);
                 if (factor < 0.7) {
                     x = 0.42;
+                    console.log('expeced case - x:' + x);
                 } else if (factor < 0.9 ) {
                     x = 0.39;
                 } else {
@@ -93,6 +94,7 @@ const evalLTTurns = (spec) => {
             }
             params.turns_lt = Math.floor(spec.lv_leg / 
                 (x * Math.sqrt(spec.kva))  + 0.5);
+            console.log('expected case: lt turns:' + params.turns_lt);
             if (spec.kva > 250 && spec.short_circuit_test === true) {
                 params.turns_lt = params.turns_lt - 1;
             }
