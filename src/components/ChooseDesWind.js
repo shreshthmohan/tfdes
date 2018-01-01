@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ChooseDesForm from './ChooseDesForm';
-import { loadSpec } from '../actions/spec';
+import { startLoadSpec } from '../actions/spec';
 
 const ChooseDesWind = (props) => {
     return (
@@ -12,7 +12,7 @@ const ChooseDesWind = (props) => {
                 customText='do winding design for'
                 onSubmit={(data) => {
                     if (data.toLoad === true) {
-                        props.dispatch(loadSpec(data.id));
+                        props.dispatch(startLoadSpec(data.id));
                     }
                     props.history.push('/winding_des1');
                 }}

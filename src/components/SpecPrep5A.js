@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SpecForm5A from './SpecForm5A';
-import { saveSpec } from '../actions/spec';
+import { startSaveSpec } from '../actions/spec';
 
 const SpecPrep5A = (props) => {
     return (
@@ -10,8 +10,11 @@ const SpecPrep5A = (props) => {
             <SpecForm5A 
                 specFromStore={props.spec}
                 onSubmit={(specFromForm) => {
-                    props.dispatch(saveSpec(specFromForm));
-                    props.history.push('/');
+                    console.log('about to dispatch');
+                    props.dispatch(startSaveSpec(specFromForm)).then(() => {
+                        console.log('redirecting to /');
+                        props.history.push('/');
+                    });
                 }}
             />
         </div>
